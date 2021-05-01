@@ -1,0 +1,37 @@
+{
+  "name": "acme-dns-01-azure",
+  "version": "0.0.1",
+  "main": "index.js",
+  "scripts": {
+    "lint": "standard --fix",
+    "test": "NODE_ENV=development node test.js"
+  },
+  "keywords": [
+    "greenlock",
+    "acme",
+    "dns-01",
+    "Let's Encrypt",
+    "Certificate",
+    "SSL"
+  ],
+  "author": "Arandjel Šarenac <arandjel@kahunahub.com>",
+  "license": "MIT",
+  "dependencies": {
+    "@azure/arm-dns": "^4.0.0",
+    "@azure/ms-rest-nodeauth": "^3.0.9",
+    "debug": "^4.3.1"
+  },
+  "devDependencies": {
+    "acme-dns-01-test": "^3.3.2",
+    "standard": "^16.0.3"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/big-kahuna-burger/acme-01-dns-azure.git"
+  },
+  "bugs": {
+    "url": "https://github.com/big-kahuna-burger/acme-01-dns-azure/issues"
+  },
+  "homepage": "https://github.com/big-kahuna-burger/acme-01-dns-azure#readme",
+  "description": ""
+}
