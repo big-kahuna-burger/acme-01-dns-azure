@@ -19,7 +19,6 @@
   "dependencies": {
     "@azure/arm-dns": "^4.0.0",
     "@azure/ms-rest-nodeauth": "^3.0.9",
-    "bluebird": "^3.7.2",
     "debug": "^4.3.1"
   },
   "devDependencies": {
