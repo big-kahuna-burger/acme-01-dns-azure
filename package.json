@@ -1,6 +1,6 @@
 {
-  "name": "acme-dns-01-azure",
-  "version": "0.0.6",
+  "name": "@big-kahuna-burger/acme-dns-01-azure",
+  "version": "0.0.7",
   "main": "index.js",
   "scripts": {
     "lint": "standard --fix",
@@ -27,11 +27,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/big-kahuna-burger/acme-01-dns-azure.git"
+    "url": "https://github.com/big-kahuna-burger/acme-01-dns-azure.git"
   },
   "bugs": {
     "url": "https://github.com/big-kahuna-burger/acme-01-dns-azure/issues"
   },
   "homepage": "https://github.com/big-kahuna-burger/acme-01-dns-azure#readme",
-  "description": ""
+  "description": "",
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com/"
+  }
 }
