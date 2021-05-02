@@ -33,8 +33,5 @@
     "url": "https://github.com/big-kahuna-burger/acme-01-dns-azure/issues"
   },
   "homepage": "https://github.com/big-kahuna-burger/acme-01-dns-azure#readme",
-  "description": "",
-  "publishConfig": {
-    "registry": "https://npm.pkg.github.com/"
-  }
+  "description": ""
 }
