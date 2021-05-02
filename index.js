@@ -24,18 +24,15 @@ class Challenge {
   }
 
   async init () {
-    debug('Initializing...')
-    const { clientId, clientSecret, azureDomain, subscriptionId } = this
-    this._tokenCredentials = await loginWithServicePrincipalSecret(clientId, clientSecret, azureDomain)
-    this._dnsClient = new DnsManagementClient(this._tokenCredentials, subscriptionId)
-    debug('Initialization finished!')
     return null
   }
 
   async zones () {
-    if (!this._dnsClient) {
-      this._dnsClient = new DnsManagementClient(this._tokenCredentials, this.subscriptionId)
-    }
+    const { clientId, clientSecret, azureDomain, subscriptionId } = this
+
+    const creds = await loginWithServicePrincipalSecret(clientId, clientSecret, azureDomain)
+    this._dnsClient = new DnsManagementClient(creds, subscriptionId)
+
     const useResourceGroups = this.resourceGroups && this.resourceGroups.length
     const _zones = await (useResourceGroups
       ? Promise.all(this.resourceGroups.map(rg => this._dnsClient.zones.listByResourceGroup(rg)))
