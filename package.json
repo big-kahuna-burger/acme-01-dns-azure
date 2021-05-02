@@ -1,6 +1,6 @@
 {
-  "name": "@big-kahuna-burger/acme-dns-01-azure",
-  "version": "0.0.5",
+  "name": "acme-dns-01-azure",
+  "version": "0.0.6",
   "main": "index.js",
   "scripts": {
     "lint": "standard --fix",
