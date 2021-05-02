@@ -38,7 +38,7 @@ jobs:
           NODE_AUTH_TOKEN: ${{secrets.npm_token}}
 
   publish-gpr:
-    needs: build
+    needs: publish-npm
     runs-on: ubuntu-latest
     permissions:
       contents: read
