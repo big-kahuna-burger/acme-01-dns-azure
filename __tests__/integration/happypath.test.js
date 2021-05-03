@@ -41,7 +41,7 @@ describe('Suite', () => {
     await expect(tester.testZone('dns-01', TEST_ZONE, challenger))
       .resolves
       .toEqual(undefined)
-  }, 120 * 1000)
+  }, 180 * 1000)
 
   it('should not throw on repeated delete', async () => {
     await expect(challenger.remove({ challenge: { dnsZone: TEST_ZONE } }))
