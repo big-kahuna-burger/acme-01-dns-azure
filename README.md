@@ -1,5 +1,7 @@
 [![npm][npm-image]](https://www.npmjs.com/package/acme-dns-01-azure)
 [![CI](https://github.com/big-kahuna-burger/acme-01-dns-azure/actions/workflows/ci.yml/badge.svg)](https://github.com/big-kahuna-burger/acme-01-dns-azure/actions/workflows/ci.yml)
+[![Issues][gh-issues]](https://github.com/big-kahuna-burger/acme-01-dns-azure/issues)
+[![License][gh-license]](https://github.com/big-kahuna-burger/acme-01-dns-azure/blob/main/LICENSE)
 
 # acme-01-dns-azure
 
@@ -35,4 +37,6 @@ greenlock
 
 
 [npm-url]: https://www.npmjs.com/package/acme-dns-01-azure
-[npm-image]: https://img.shields.io/npm/v/acme-dns-01-azure.svg?style=flat-square
+[npm-image]: https://img.shields.io/npm/v/acme-dns-01-azure.svg?style=flat-square&cacheSeconds=60
+[gh-issues]: https://img.shields.io/github/issues/big-kahuna-burger/acme-01-dns-azure
+[gh-license]: https://img.shields.io/github/license/big-kahuna-burger/acme-01-dns-azure
