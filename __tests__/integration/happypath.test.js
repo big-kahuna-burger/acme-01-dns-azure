@@ -37,17 +37,19 @@ describe('Suite', () => {
     TTL: 60
   })
 
+  const timeout = 180 * 1000
+
   it('should run to success', async () => {
     await expect(tester.testZone('dns-01', TEST_ZONE, challenger))
       .resolves
       .toEqual(undefined)
-  }, 180 * 1000)
+  }, timeout)
 
   it('should not throw on repeated delete', async () => {
     await expect(challenger.remove({ challenge: { dnsZone: TEST_ZONE } }))
       .resolves
       .toEqual(null)
-  })
+  }, timeout)
 
   it('should not verify on dummy challenge', async () => {
     await expect(challenger.get({
@@ -59,7 +61,7 @@ describe('Suite', () => {
     }))
       .resolves
       .toEqual(null)
-  })
+  }, timeout)
 
   ;[{ params: undefined, errMsg: 'Missing subscriptionId' },
     { params: { subscriptionId: 'abc' }, errMsg: 'Missing clientId' },
