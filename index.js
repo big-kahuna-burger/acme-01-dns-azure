@@ -10,12 +10,28 @@ const { loginWithServicePrincipalSecret } = require('@azure/ms-rest-nodeauth')
 const TXT_TYPE = 'TXT'
 
 class Challenge {
-  constructor (options = {}) {
-    this.subscriptionId = options.subscriptionId
-    this.clientId = options.clientId
-    this.clientSecret = options.clientSecret
-    this.azureDomain = options.azureDomain
-    this.TTL = options.TTL || 3600
+  constructor ({ subscriptionId, clientId, clientSecret, azureDomain, TTL = 3600 } = {}) {
+    this.subscriptionId = subscriptionId
+    this.clientId = clientId
+    this.clientSecret = clientSecret
+    this.azureDomain = azureDomain
+    this.TTL = TTL
+
+    if (!subscriptionId) {
+      throw new Error('Missing subscriptionId')
+    }
+
+    if (!clientId) {
+      throw new Error('Missing clientId')
+    }
+
+    if (!clientSecret) {
+      throw new Error('Missing clientSecret')
+    }
+
+    if (!azureDomain) {
+      throw new Error('Missing azureDomain')
+    }
   }
 
   static create (config) {
@@ -26,7 +42,7 @@ class Challenge {
     return null
   }
 
-  async zones ({ dnsHosts }) {
+  async zones () {
     const { clientId, clientSecret, azureDomain, subscriptionId } = this
     const creds = await loginWithServicePrincipalSecret(clientId, clientSecret, azureDomain)
 
@@ -50,7 +66,8 @@ class Challenge {
       dnsZone,
       dnsPrefix,
       keyAuthorizationDigest,
-      dnsAuthorization, altname
+      dnsAuthorization,
+      altname
     }
   }) {
     const resourceGroup = this.__zoneToResourceGroup[dnsZone]

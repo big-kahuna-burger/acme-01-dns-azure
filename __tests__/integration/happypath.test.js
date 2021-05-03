@@ -29,17 +29,46 @@ describe('Suite', () => {
   if (!TEST_ZONE) {
     throw new Error('Missing TEST_ZONE')
   }
+  const challenger = ACME_DNS_01_AZURE.create({
+    clientId: AZURE_CLIENT_ID,
+    clientSecret: AZURE_CLIENT_SECRET,
+    subscriptionId: AZURE_SUBSCRIPTION_ID,
+    azureDomain: AZURE_DOMAIN,
+    TTL: 60
+  })
 
   it('should run to success', async () => {
-    const challenger = ACME_DNS_01_AZURE.create({
-      clientId: AZURE_CLIENT_ID,
-      clientSecret: AZURE_CLIENT_SECRET,
-      subscriptionId: AZURE_SUBSCRIPTION_ID,
-      azureDomain: AZURE_DOMAIN,
-      TTL: 60
-    })
     await expect(tester.testZone('dns-01', TEST_ZONE, challenger))
       .resolves
       .toEqual(undefined)
   }, 120 * 1000)
+
+  it('should not throw on repeated delete', async () => {
+    await expect(challenger.remove({ challenge: { dnsZone: TEST_ZONE } }))
+      .resolves
+      .toEqual(null)
+  })
+
+  it('should not verify on dummy challenge', async () => {
+    await expect(challenger.get({
+      challenge: {
+        dnsZone: TEST_ZONE,
+        dnsPrefix: 'citest',
+        dnsAuthorization: 'dummy'
+      }
+    }))
+      .resolves
+      .toEqual(null)
+  })
+
+  ;[{ params: undefined, errMsg: 'Missing subscriptionId' },
+    { params: { subscriptionId: 'abc' }, errMsg: 'Missing clientId' },
+    { params: { subscriptionId: 'abc', clientId: 'abc' }, errMsg: 'Missing clientSecret' },
+    { params: { subscriptionId: 'abc', clientId: 'abc', clientSecret: 'abc' }, errMsg: 'Missing azureDomain' }
+  ].map(testCase => {
+    return it('when ' + testCase.errMsg.toLowerCase(), () => {
+      const fn = () => new ACME_DNS_01_AZURE(testCase.params)
+      expect(fn).toThrow(testCase.errMsg)
+    })
+  })
 })
