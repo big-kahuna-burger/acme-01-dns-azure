@@ -1,4 +1,4 @@
-[![npm version](https://badge.fury.io/js/acme-dns-01-azure.svg)](https://badge.fury.io/js/acme-dns-01-azure)
+[![npm][npm-image]](npm-url)
 [![CI](https://github.com/big-kahuna-burger/acme-01-dns-azure/actions/workflows/ci.yml/badge.svg)](https://github.com/big-kahuna-burger/acme-01-dns-azure/actions/workflows/ci.yml)
 
 # acme-01-dns-azure
@@ -31,3 +31,8 @@ greenlock
     }
   })
 ```
+
+
+
+[npm-url]: https://www.npmjs.com/package/acme-dns-01-azure
+[npm-image]: https://img.shields.io/npm/v/acme-dns-01-azure.svg?style=flat-square
