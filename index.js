@@ -15,7 +15,6 @@ class Challenge {
     this.clientId = options.clientId
     this.clientSecret = options.clientSecret
     this.azureDomain = options.azureDomain
-    this.resourceGroups = options.resourceGroups
     this.TTL = options.TTL || 3600
   }
 
@@ -27,16 +26,13 @@ class Challenge {
     return null
   }
 
-  async zones () {
+  async zones ({ dnsHosts }) {
     const { clientId, clientSecret, azureDomain, subscriptionId } = this
-
     const creds = await loginWithServicePrincipalSecret(clientId, clientSecret, azureDomain)
+
     this._dnsClient = new DnsManagementClient(creds, subscriptionId)
 
-    const useResourceGroups = this.resourceGroups && this.resourceGroups.length
-    const _zones = await (useResourceGroups
-      ? Promise.all(this.resourceGroups.map(rg => this._dnsClient.zones.listByResourceGroup(rg)))
-      : this._dnsClient.zones.list())
+    const _zones = await this._dnsClient.zones.list()
 
     const zones = _zones.map(z => z.name)
 
@@ -45,10 +41,7 @@ class Challenge {
       [`${zone.name}`]: zone.id.split('/')[4]
     }), {})
 
-    debug({
-      mapping: this.__zoneToResourceGroup,
-      zones
-    })
+    debug({ mapping: this.__zoneToResourceGroup, zones })
     return zones
   }
 
@@ -57,10 +50,11 @@ class Challenge {
       dnsZone,
       dnsPrefix,
       keyAuthorizationDigest,
-      dnsAuthorization
+      dnsAuthorization, altname
     }
   }) {
     const resourceGroup = this.__zoneToResourceGroup[dnsZone]
+    if (!resourceGroup) throw new Error(`Could not find resource group for ${altname}`)
     const thisTXT = keyAuthorizationDigest || dnsAuthorization
     const nextTXTs = [thisTXT]
     try {
