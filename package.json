@@ -4,7 +4,8 @@
   "main": "index.js",
   "scripts": {
     "lint": "standard --fix",
-    "test": "NODE_ENV=development jest --coverage"
+    "test": "NODE_ENV=development jest --coverage",
+    "rename": "node rename acme-dns-01-azure"
   },
   "keywords": [
     "greenlock",
